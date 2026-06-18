@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: yt_dlp_wrapper_flask
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile

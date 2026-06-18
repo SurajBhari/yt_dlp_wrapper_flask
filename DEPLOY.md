@@ -1,0 +1,25 @@
+# Deploying yt_dlp_wrapper_flask
+
+This app ships ready to deploy on a free host (Render, Railway, Fly.io, …). A `Dockerfile`, `Procfile`, and `render.yaml` are included.
+
+## Option A — Render free tier (easiest)
+
+1. Go to https://render.com → **New → Web Service** → connect this repo.
+2. Render auto-detects `render.yaml` — click **Apply**.
+   Manual settings if needed:
+   - Build command: `pip install -r requirements.txt`
+   - Start command: `gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120`
+3. Deploy. You get a public `*.onrender.com` URL.
+
+## Option B — Docker (Railway / Fly.io / any host)
+
+```bash
+docker build -t yt_dlp_wrapper_flask .
+docker run -p 8080:8080 yt_dlp_wrapper_flask
+```
+
+The container listens on `$PORT` (defaults to 8080).
+
+## ⚠️ Required configuration
+
+Use the **Docker** runtime (already set in `render.yaml`) — it needs FFmpeg, which the Dockerfile installs.
